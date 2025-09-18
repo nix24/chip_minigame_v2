@@ -10,10 +10,10 @@ export type NintendoSound =
 type SoundMap = Record<NintendoSound, string>;
 
 const DEFAULT_SOUNDS: SoundMap = {
-  "primary-click": "/sounds/ui/primary-click.mp3",
-  "hover-pop": "/sounds/ui/hover-pop.mp3",
-  celebration: "/sounds/ui/celebration.mp3",
-  ambient: "/sounds/ui/ambient-loop.mp3",
+  "primary-click": "/soundSfx/confirm.mp3",
+  "hover-pop": "/soundSfx/btnHover.mp3",
+  celebration: "/soundSfx/loadingScreen.mp3",
+  ambient: "/ost/menuTheme.mp3",
 };
 
 interface UseSoundOptions {
@@ -51,21 +51,41 @@ export function useNintendoSound({
         return;
       }
 
+      if (sound === "ambient") {
+        if (ambientRef.current) {
+          const current = ambientRef.current;
+          const currentVolume = current.volume();
+          current.fade(currentVolume, 0, 450);
+          current.once("fade", () => {
+            current.stop();
+            current.unload();
+          });
+        }
+
+        const ambient = new Howl({
+          src: [src],
+          loop: loopAmbient,
+          volume: 0,
+          html5: false,
+        });
+
+        ambient.on("play", () => {
+          ambient.fade(0, volume, 650);
+        });
+
+        ambient.play();
+        ambientRef.current = ambient;
+        return;
+      }
+
       const howl = new Howl({
         src: [src],
         volume,
-        loop: sound === "ambient" && loopAmbient,
       });
 
-      if (sound === "ambient") {
-        ambientRef.current?.stop();
-        ambientRef.current?.unload();
-        ambientRef.current = howl;
-      } else {
-        howl.once("end", () => {
-          howl.unload();
-        });
-      }
+      howl.once("end", () => {
+        howl.unload();
+      });
 
       howl.play();
     },
@@ -73,8 +93,17 @@ export function useNintendoSound({
   );
 
   const stopAmbient = useCallback(() => {
-    ambientRef.current?.stop();
-    ambientRef.current?.unload();
+    if (!ambientRef.current) {
+      return;
+    }
+
+    const current = ambientRef.current;
+    const currentVolume = current.volume();
+    current.fade(currentVolume, 0, 500);
+    current.once("fade", () => {
+      current.stop();
+      current.unload();
+    });
     ambientRef.current = null;
   }, []);
 

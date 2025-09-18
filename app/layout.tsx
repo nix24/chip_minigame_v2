@@ -29,8 +29,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body
         className={cn(
-          "min-h-screen bg-[radial-gradient(circle_at_top,_#fff6fb,_#f6f3ff)]",
-          "text-foreground antialiased",
+          "min-h-screen text-foreground antialiased",
           geistSans.variable,
           geistMono.variable,
         )}

@@ -20,11 +20,13 @@ export function BouncyButton({
     <motion.div
       {...bouncePreset}
       className={cn(
-        glow && "shadow-[0_18px_40px_-25px_rgba(255,82,128,0.9)]",
-        "rounded-[1.5rem]",
+        glow && "from-[#3a1b63]/70 via-transparent to-[#3a1b63]/70",
+        glow &&
+          "bg-[radial-gradient(circle,_rgba(255,214,74,0.35)_0%,_rgba(255,99,226,0.0)_65%)]",
+        "rounded-full",
       )}
     >
-      <Button className={cn("px-10 py-6 text-xl", className)} {...props} />
+      <Button className={className} {...props} />
     </motion.div>
   );
 }

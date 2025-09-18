@@ -12,65 +12,68 @@ export interface MenuTileProps {
   title: string;
   icon: ReactNode;
   tagline: string;
-  players: string;
+  subtitle: string;
   onSelect?: () => void;
+  active?: boolean;
 }
 
 export function MenuTile({
   title,
   icon,
   tagline,
-  players,
+  subtitle,
   onSelect,
+  active = false,
 }: MenuTileProps) {
   return (
     <motion.button
       {...bouncePreset}
       type="button"
       onClick={onSelect}
-      aria-label={["Play", title].join(" ")}
+      aria-label={["Explore", title].join(" ")}
+      aria-pressed={active}
       className={cn(
-        "group relative isolate w-64 rounded-3xl text-left outline-none",
-        "focus-visible:ring-4 focus-visible:ring-[#ffb4d0]",
+        "group relative isolate flex w-full max-w-xs flex-col rounded-[1.75rem] p-[2px] text-left transition-shadow",
+        "focus-visible:ring-4 focus-visible:ring-offset-0 focus-visible:ring-[rgba(255,214,74,0.45)]",
+        active
+          ? "shadow-[0_25px_70px_-40px_rgba(255,204,76,0.85)]"
+          : "shadow-[0_20px_65px_-45px_rgba(24,7,56,0.9)]",
       )}
     >
+      <div
+        className={cn(
+          "absolute inset-0 rounded-[1.75rem] opacity-0 transition-opacity duration-300",
+          active
+            ? "bg-[radial-gradient(circle,_rgba(255,214,74,0.32)_0%,_rgba(255,214,74,0)_70%)] opacity-100"
+            : "group-hover:opacity-100 group-hover:bg-[radial-gradient(circle,_rgba(255,99,226,0.24)_0%,_rgba(255,99,226,0)_70%)]",
+        )}
+      />
       <SoftCard
         floating={false}
-        className={cn(
-          "relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur",
-          "dark:border-white/20 dark:bg-white/10",
-        )}
+        className="relative z-10 flex h-full flex-col gap-6 rounded-[1.6rem] border-[rgba(132,97,210,0.35)] bg-[rgba(20,7,43,0.85)] p-6"
       >
-        <div className="flex items-start justify-between">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ffe598] to-[#ffaf5f] text-2xl">
+        <div className="flex items-center justify-between">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,_rgba(255,214,74,0.25),_rgba(255,99,226,0.35))] text-3xl text-[#ffd54a]">
             {icon}
           </div>
           <motion.span
             {...pulsePreset}
-            className="rounded-full bg-[#ff8fb7]/15 px-3 py-1 text-xs font-semibold text-[#ff4f8a]"
+            className="rounded-full bg-[rgba(106,90,255,0.18)] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#d7c6ff]"
           >
-            {players}
+            {subtitle}
           </motion.span>
         </div>
-        <div className="mt-6 space-y-2">
-          <h3 className="text-2xl font-extrabold tracking-tight text-[#241b54] dark:text-white">
-            {title}
-          </h3>
-          <p className="text-sm font-medium text-[#544a8f] dark:text-white/70">
-            {tagline}
-          </p>
+        <div className="space-y-2">
+          <h3 className="text-2xl font-black text-white">{title}</h3>
+          <p className="text-sm text-[#d5c7ff]/80">{tagline}</p>
         </div>
-        <div className="mt-6 flex items-center justify-between text-sm font-semibold text-[#ff4f8a]">
-          <span>Start adventure</span>
+        <div className="mt-auto flex items-center justify-between text-sm font-semibold text-[#ffd54a]">
+          <span>Launch</span>
           <ArrowRight
             className="size-4 transition-transform group-hover:translate-x-1"
             aria-hidden
           />
         </div>
-        <div
-          aria-hidden
-          className="absolute inset-x-0 -bottom-1 h-16 rounded-b-3xl bg-gradient-to-t from-[#ff8fb7]/40 to-transparent"
-        />
       </SoftCard>
     </motion.button>
   );

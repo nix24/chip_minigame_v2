@@ -5,22 +5,22 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-3xl text-lg font-semibold transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60",
+  "inline-flex items-center justify-center rounded-full text-lg font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent disabled:pointer-events-none disabled:opacity-60",
   {
     variants: {
       variant: {
         default:
-          "bg-gradient-to-br from-[#ff8fb7] to-[#ff5f8f] text-white shadow-lg",
+          "bg-[linear-gradient(135deg,_#ffd54a_0%,_#ff8e3c_42%,_#ff63e2_100%)] text-[var(--primary-foreground)] shadow-[0_22px_55px_-28px_rgba(255,104,232,0.75)]",
         secondary:
-          "bg-gradient-to-br from-[#8af5ff] to-[#6fb7ff] text-[#122043] shadow-md",
+          "border border-[rgba(139,84,255,0.45)] bg-[rgba(26,12,58,0.75)] text-[#f0eaff] shadow-[0_18px_40px_-32px_rgba(95,63,204,0.6)]",
         outline:
-          "border-2 border-[#ff8fb7] text-[#ff4f8a] bg-white/80 backdrop-blur",
+          "border border-[rgba(255,214,74,0.65)] bg-transparent text-[#ffd54a] shadow-[0_0_0_2px_rgba(255,214,74,0.15)]",
       },
       size: {
-        default: "h-12 px-8",
-        lg: "h-14 px-10 text-xl",
-        sm: "h-10 px-6 text-base",
-        icon: "h-12 w-12 text-2xl",
+        default: "h-12 px-9",
+        lg: "h-14 px-12 text-xl",
+        sm: "h-10 px-6 text-sm",
+        icon: "h-11 w-11 text-lg",
       },
     },
     defaultVariants: {

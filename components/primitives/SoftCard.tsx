@@ -21,8 +21,8 @@ export function SoftCard({
       <motion.div {...floatPreset}>
         <Card
           className={cn(
-            "border-white/30 bg-white/80 dark:border-white/10 dark:bg-white/10",
-            "shadow-[0_25px_55px_-35px_rgba(40,32,90,0.6)]",
+            "border-[rgba(132,97,210,0.4)] bg-[rgba(22,8,44,0.7)] backdrop-blur-xl",
+            "shadow-[0_35px_80px_-50px_rgba(26,6,43,0.95)]",
             className,
           )}
           {...props}
@@ -34,8 +34,8 @@ export function SoftCard({
   return (
     <Card
       className={cn(
-        "border-white/30 bg-white/80 dark:border-white/10 dark:bg-white/10",
-        "shadow-[0_25px_55px_-35px_rgba(40,32,90,0.6)]",
+        "border-[rgba(132,97,210,0.4)] bg-[rgba(22,8,44,0.7)] backdrop-blur-xl",
+        "shadow-[0_35px_80px_-50px_rgba(26,6,43,0.95)]",
         className,
       )}
       {...props}
